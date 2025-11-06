@@ -358,3 +358,82 @@ img { max-width: 100%; display: block; }
     padding: 40px 16px;
   } */
 }
+
+/* ======================
+   PÁGINA: NUESTRO TRABAJO
+   (ajusta la página a un look de galería limpio y responsive)
+====================== */
+
+/* Título superior */
+.banner-nosotros {
+  width: min(1200px, 92%);
+  margin: 40px auto 0;
+  padding: 40px 20px;
+  background-color: $clr-surface;
+  border-radius: 0 0 50px 50px;
+
+  .content-left-trabajo {
+    text-align: center;
+
+    .title-banner-home {
+      color: $clr-brand;
+      margin: 0;
+    }
+  }
+}
+
+/* Sección con overlay (hereda tu .section-2 global) + galería */
+.section-2 {
+  /* deja el fondo/overlay global que ya definiste para .section-2 */
+  margin-top: 24px;
+
+  /* Convertimos cada fila .content-images-section en un GRID 4-col */
+  .content-images-section {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    width: min(1200px, 92%);
+    margin: 0 auto 22px;
+
+    .images-services {
+      width: 100%;                /* que llenen la celda */
+      height: 100%;
+      aspect-ratio: 1 / 1;        /* cuadradas; puedes cambiar a 4/3 */
+      object-fit: cover;
+      border-radius: 14px;
+      border: 0;                  /* quitamos borde rosa del home */
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      transition: transform .25s ease, box-shadow .25s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0,0,0,.12);
+      }
+    }
+  }
+}
+
+/* Animación de entrada suave */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.banner-nosotros,
+.section-2 .content-images-section { animation: fadeUp .6s ease both; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .section-2 .content-images-section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .section-2 .content-images-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .section-2 .content-images-section {
+    /* grid-template-columns: 1fr;
+   */}
+}
