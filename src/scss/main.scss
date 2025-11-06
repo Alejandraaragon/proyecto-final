@@ -229,3 +229,132 @@ img { max-width: 100%; display: block; }
 
  /*  .main-container { padding: 0 10px; } */
 }
+
+/* ======================
+   PÁGINA: NOSOTROS
+   (estilos específicos para tu HTML actual)
+====================== */
+
+/* Hero “Sobre Nosotros” */
+.banner-nosotros {
+  width: min(1200px, 92%);
+  margin: 40px auto 0;
+  padding: 40px 20px;
+  background-color: $clr-surface;
+  border-radius: 0 0 50px 50px;
+
+  .content-left-nosotros {
+    text-align: center;
+
+    .title-banner-home {
+      color: $clr-brand;
+      margin: 0;
+    }
+  }
+}
+
+/* Bloque imagen + texto (reutiliza layout del home) */
+.banner-home {
+  @include flex-center(150px);
+  justify-content: space-between;
+  width: min(1200px, 92%);
+  margin: 40px auto 60px;
+  padding: 0;
+
+  img { width: 100%; height: auto; border-radius: 12px; }
+
+  .content-left {
+    max-width: 560px;
+
+    .title-banner-home { color: $clr-brand; }
+    p { line-height: 1.6; }
+  }
+}
+
+/* Sección “Nuestro objetivo” (apoyada en tu .section-2 existente) */
+.section-2 {
+  /* ya tienes un fondo con overlay en el home; aquí solo ajusto separación */
+  margin-top: 20px;
+
+  .title-section { color: $clr-white; }
+  .services-sections { color: $clr-white; }
+
+  /* Tarjetas de Misión / Visión */
+  .content-images-section {
+    @include flex-center(20px);
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 24px;
+
+    > div {
+      background: #fff;
+      color: $clr-brand;
+      width: 520px;
+      max-width: 100%;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      h4.title-section {
+        color: $clr-brand;
+        margin: 0 0 4px;
+      }
+
+      p { margin: 0 0 8px; line-height: 1.6; }
+
+      .images-services {
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        object-fit: cover;
+        display: block;
+      }
+    }
+  }
+}
+
+/* Animación suave al aparecer */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.banner-nosotros,
+.banner-home,
+.section-2 .content-images-section > div { animation: fadeUp .6s ease both; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .banner-home {
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+
+    .content-left { max-width: 90%; margin: 0 auto; }
+  }
+
+  .section-2 {
+    padding: 60px 20px; /* si tu .section-2 ya define padding, esto lo suaviza en tablet */
+    .content-images-section > div { width: 100%; }
+  }
+}
+
+@media (max-width: 680px) {
+  .banner-nosotros { padding: 28px 16px; }
+
+  .banner-home {
+    gap: 18px;
+    padding: 0 16px;
+
+    .title-banner-home { font-size: 28px; }
+    .content-left p { font-size: 16px; }
+  }
+
+  /* .section-2 {
+    padding: 40px 16px;
+  } */
+}
