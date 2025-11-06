@@ -437,3 +437,111 @@ img { max-width: 100%; display: block; }
     /* grid-template-columns: 1fr;
    */}
 }
+
+/* ======================
+   PÁGINA: SERVICIOS
+   – Reutiliza el layout del home (.banner-home) con alternancia
+====================== */
+
+/* Título “Nuestros Servicios” (reusa tu .banner-nosotros global) */
+.banner-nosotros {
+  /* ya está estilizada para las otras internas;
+     aquí solo aseguramos coherencia de color */
+  .title-banner-home { color: $clr-brand; }
+}
+
+/* Scope ideal si agregaste class="servicios" al <main> */
+.servicios {
+  /* Cada bloque de servicio usa tu .banner-home */
+  .banner-home {
+    @include flex-center(150px);
+    justify-content: space-between;
+    width: min(1200px, 92%);
+    margin: 40px auto 60px;
+    padding: 0;
+
+    /* Imagen */
+    > div:first-child img {
+      width: 420px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      display: block;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    /* Texto */
+    .content-left {
+      max-width: 560px;
+
+      .title-banner-home { color: $clr-brand; margin-bottom: 8px; }
+      p { line-height: 1.65; margin: 0; }
+    }
+  }
+
+  /* Alternar el orden (imagen/texto) para mayor ritmo visual */
+  .banner-home:nth-of-type(even) {
+    flex-direction: row-reverse; /* invierte en desktop */
+  }
+}
+
+/* ====== RESPALDO (si NO agregaste class="servicios" al <main>) ====== */
+main.main-container {
+  /* Solo aplica en la página Servicios si quieres algo rápido:
+     como tienes 4 .banner-home seguidos debajo del .banner-nosotros */
+  .banner-home {
+    @include flex-center(150px);
+    justify-content: space-between;
+    width: min(1200px, 92%);
+    margin: 40px auto 60px;
+
+    > div:first-child img {
+      width: 420px; max-width: 100%; height: auto;
+      border-radius: 16px; display: block;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    .content-left {
+      max-width: 560px;
+      .title-banner-home { color: $clr-brand; }
+      p { line-height: 1.65; }
+    }
+  }
+  .banner-home:nth-of-type(2),
+  .banner-home:nth-of-type(4) {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ===== Animación suave al aparecer ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.banner-nosotros,
+.servicios .banner-home,
+main.main-container .banner-home { animation: fadeUp .6s ease both; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .servicios .banner-home,
+  main.main-container .banner-home {
+    flex-direction: column !important; /* anula alternancia en tablet/móvil */
+    gap: 24px;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+
+    .content-left { max-width: 90%; margin: 0 auto; }
+  }
+}
+
+@media (max-width: 680px) {
+  .servicios .banner-home,
+  main.main-container .banner-home {
+    gap: 18px;
+    padding: 0 16px;
+
+    .title-banner-home { font-size: 28px; }
+   /*  .content-left p { font-size: 16px; }
+   */}
+}
