@@ -1,0 +1,231 @@
+/* ======================
+   VARIABLES
+====================== */
+$clr-bg: #F9B3B3;
+$clr-surface: #FEF4EA;
+$clr-brand: #8C6C6F;
+$clr-white: #ffffff;
+
+$radius-pill: 50px;
+$radius-lg: 80px;
+
+$font-sans: "Arial", "Helvetica", sans-serif;
+
+/* ======================
+   MIXINS
+====================== */
+@mixin flex-center($gap: 0) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+/* ======================
+   BASE
+====================== */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: $clr-bg;
+  font-family: $font-sans;
+  color: $clr-brand;
+}
+
+h1 { margin: 0 0 .5rem; font-weight: 700; color: $clr-white; }
+h2 { margin: 0 0 .5rem; font-weight: 700; color: $clr-brand; }
+p  { margin: 0 0 30px; color: $clr-brand; }
+img { max-width: 100%; display: block; }
+
+/* ======================
+   BOTONES
+====================== */
+.btn {
+  padding: 10px 20px;
+  color: $clr-brand;
+  background-color: $clr-white;
+  border-radius: $radius-pill;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease;
+
+  &:hover {
+    color: $clr-white;
+    background-color: $clr-brand;
+  }
+}
+
+#btn-nosotros {
+  color: $clr-white;
+  background-color: $clr-brand;
+
+  &:hover {
+    color: $clr-bg;
+    background-color: $clr-white;
+  }
+}
+
+/* ======================
+   HEADER + NAV
+====================== */
+.header {
+  @include flex-center();
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 40px;
+  background-color: $clr-surface;
+  border-radius: 0 0 50px 50px;
+
+  .header-image {
+    @include flex-center();
+    justify-content: space-between;
+    width: 100%;
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .header-content {
+    nav {
+      /* ul semántico (ver HTML) */
+      .menu-list {
+        @include flex-center(20px);
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style: none;
+
+          a.menu {
+            color: $clr-brand;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color .2s ease;
+
+             &:hover { color: lighten($clr-brand, 15%);  }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ======================
+   HOME
+====================== */
+.main-container { 
+  display: grid; 
+  place-items: center; 
+}
+
+/* Banner home (texto + imagen) */
+.banner-home {
+  @include flex-center(150px);
+  justify-content: space-between;
+  width: 1200px;
+  padding: 100px 0;
+
+  .content-left {
+    .title-banner-home { }
+  }
+
+  .img-banner { }
+}
+
+/* Sección "Servicios" con overlay */
+.content-section-2 { text-align: center; }
+
+.section-2 {
+  /* IMPORTANTE: como el CSS resultante queda en dist/css/main.css,
+     la ruta relativa desde ahí hasta Assets es ../../Assets/... */
+  background-image: url("../../Assets/relax-686392_1280.jpg");
+  padding: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: $radius-lg $radius-lg 0 0;
+  position: relative;
+  z-index: 1;
+  color: $clr-white;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-lg $radius-lg 0 0;
+    background-color: rgba(50,50,50,.6);
+    z-index: -1;
+  }
+}
+
+/* Tira de imágenes de servicios */
+.content-images-section {
+  @include flex-center(20px);
+  justify-content: center;
+  align-items: center;
+}
+
+.services-sections { padding-left: 10%; padding-right: 10%; }
+
+.images-services {
+  width: 24%;
+  border: 2px solid $clr-bg;
+  border-radius: 12px;
+}
+
+/* ======================
+   RESPONSIVE
+====================== */
+@media (max-width: 1024px) {
+  .header {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+
+    .header-image { flex-direction: column; gap: 10px; }
+    .header-content nav .menu-list { flex-wrap: wrap; justify-content: center; gap: 12px; }
+  }
+
+  .banner-home {
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+    padding: 60px 20px;
+    text-align: center;
+
+    img { width: 100%; max-width: 400px; height: auto; }
+    .content-left { max-width: 90%; }
+  }
+
+  .section-2 { padding: 60px 20px; }
+
+  .content-images-section {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .images-services { width: 45%; }
+}
+
+@media (max-width: 768px) {
+  .banner-home {
+    flex-direction: column;
+    gap: 30px;
+    padding: 40px 15px;
+
+    .title-banner-home { font-size: 28px; }
+    .content-left p { font-size: 16px; }
+    .btn { font-size: 14px; padding: 8px 16px; }
+  }
+
+  .content-images-section { flex-direction: column; gap: 20px; }
+  .images-services { width: 90%; }
+
+ /*  .main-container { padding: 0 10px; } */
+}
